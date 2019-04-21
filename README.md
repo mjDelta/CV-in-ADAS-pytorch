@@ -24,7 +24,6 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 | Unet-3D | \ | \ | \ |
 | S-CNN | \ | \ | \ |
 
-![unet2d](https://github.com/mjDelta/CV-in-ADAS/blob/master/gif/unet2d.gif)
 ### 4.2 Detection
 ## 5. To do list
 - [ ] Segmentation: FCN series
