@@ -23,6 +23,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 | Unet-2D | 0.0620 | \ | \ |
 | Unet-3D | \ | \ | \ |
 | S-CNN | \ | \ | \ |
+
 ![unet2d](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/06031758_0902%5B00-00-00--00-00-12%5D_20.jpeg)
 ### 4.2 Detection
 ## 5. To do list
@@ -33,5 +34,6 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 - [ ] Detection: YOLO series
 - [ ] Combining the above
 ## 6. Reference paper
+### 6.1 Segmentation part
 1. [Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedical image segmentation[C]//International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015: 234-241.](https://arxiv.org/abs/1505.04597)
 2. [Pan X, Shi J, Luo P, et al. Spatial as deep: Spatial cnn for traffic scene understanding[C]//Thirty-Second AAAI Conference on Artificial Intelligence. 2018.](https://arxiv.org/abs/1712.06080)
