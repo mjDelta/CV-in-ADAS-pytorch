@@ -26,7 +26,7 @@ package list:
 ## 2. Detection
 | Task | Purpose |
 | :--: | :--: |
-| Vihicle detection | Vehicle approach warning |
+| Vehicle detection | Vehicle approach warning |
 | Pedestrain detection | Pedestrian approach warning |
 ## 3. Datasets
 Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
