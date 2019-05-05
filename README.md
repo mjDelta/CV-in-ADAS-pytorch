@@ -52,5 +52,5 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 ### 6.1 Segmentation part
 1. [Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedical image segmentation[C]//International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015: 234-241.](https://arxiv.org/abs/1505.04597)
 2. [Pan X, Shi J, Luo P, et al. Spatial as deep: Spatial cnn for traffic scene understanding[C]//Thirty-Second AAAI Conference on Artificial Intelligence. 2018.](https://arxiv.org/abs/1712.06080)
-3. [VPGNet: Vanishing Point Guided Network for Lane and Road Marking Detection and Recognition](https://arxiv.org/abs/1710.06288)
+3. [Lee S, Kim J, Shin Yoon J, et al. Vpgnet: Vanishing point guided network for lane and road marking detection and recognition[C]//Proceedings of the IEEE International Conference on Computer Vision. 2017: 1947-1955.](https://arxiv.org/abs/1710.06288)
 ### 6.2 Detection
