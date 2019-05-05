@@ -44,7 +44,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 ## 5. To do list
 - [ ] Segmentation: FCN series
   - [x] 2D U-Net Seg
-  - [ ] 3D U-Net Seg
+  - [ ] VPGNet
   - [ ] S-CNN
 - [ ] Detection: YOLO series
 - [ ] Combining the above
@@ -52,4 +52,5 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 ### 6.1 Segmentation part
 1. [Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedical image segmentation[C]//International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015: 234-241.](https://arxiv.org/abs/1505.04597)
 2. [Pan X, Shi J, Luo P, et al. Spatial as deep: Spatial cnn for traffic scene understanding[C]//Thirty-Second AAAI Conference on Artificial Intelligence. 2018.](https://arxiv.org/abs/1712.06080)
+3. [VPGNet: Vanishing Point Guided Network for Lane and Road Marking Detection and Recognition](https://arxiv.org/abs/1710.06288)
 ### 6.2 Detection
