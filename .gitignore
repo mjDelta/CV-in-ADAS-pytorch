@@ -1,0 +1,15 @@
+.idea
+*.pyc
+*.log
+*.jpg
+*.out
+.DS_Store
+/.idea
+data
+log
+__pycache__
+.ipynb_checkpoints
+*.txt
+*.csv
+*.mp4
+*.jpg
