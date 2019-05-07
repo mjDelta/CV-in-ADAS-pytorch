@@ -35,8 +35,8 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 | Model | BCE Loss | IOU | ACC |
 | :--: | :--: | :--: | :--: |
 | Unet-2D | 0.0620 | \ | \ |
-| Unet-3D | \ | \ | \ |
-| S-CNN | \ | \ | \ |
+| VPGNet | \ | \ | \ |
+| S-CNN | 0.0371 | \ | \ |
 
 ![unet2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_unet2d.jpeg)
 ![unet2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_unet2d.png)
@@ -45,7 +45,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 - [ ] Segmentation: FCN series
   - [x] 2D U-Net Seg
   - [ ] VPGNet
-  - [ ] S-CNN
+  - [x] S-CNN
 - [ ] Detection: YOLO series
 - [ ] Combining the above
 ## 6. Reference paper
