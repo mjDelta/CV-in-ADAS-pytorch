@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Date    : 2019-04-21 12:15:26
+# @Date    : 2019-05-07 21:29:00
 # @Author  : Mengji Zhang (zmj_xy@sjtu.edu.cn)
 
-from models_unet import *
+from models_scnn import *
 import torch 
 from data_utils import *
 import numpy as np
 import os
 import cv2
+from skimage.transform import resize
 
 USE_CUDA=torch.cuda.is_available()
 device=torch.device("cuda" if USE_CUDA else "cpu")
 
 lane_imgs_dir="E:/cv-adas/driver_161_90frame/driver_161_90frame"
 lane_labels_dir="E:/cv-adas/laneseg_label_w16/laneseg_label_w16/driver_161_90frame"
-out_dir="E:/cv-adas/out-driver_161_90frame-unet2d/"
+out_dir="E:/cv-adas/out-driver_161_90frame-scnn2d/"
 model_path=os.path.join(out_dir,"epoch_49.tar")
 
 size_h=16*8
@@ -23,12 +24,12 @@ size_w=size_h*3
 batch_size=1
 train_rate=0.8
 
-unet=UNet2D()
-unet=unet.to(device)
-unet.train(mode=False)
+scnn=SCNN2D()
+scnn=scnn.to(device)
+scnn.train(mode=False)
 
 model_sd=torch.load(model_path)
-unet.load_state_dict(model_sd["unet"])
+scnn.load_state_dict(model_sd["scnn"])
 
 video_paths,label_paths=get_video_label_paths(lane_imgs_dir,lane_labels_dir)
 rng=np.random.RandomState(0)
@@ -54,7 +55,7 @@ for test_video_path,test_label_path in zip(test_video_paths,test_laebl_paths):
 		batch_imgs,batch_labels=read_video_mask(test_video_path[start:end],test_label_path[start:end],size_h,size_w)
 		batch_imgs_tensor=torch.FloatTensor(batch_imgs).to(device)
 
-		batch_preds=unet(batch_imgs_tensor)
+		batch_preds=scnn(batch_imgs_tensor)
 
 		batch_preds_arr=batch_preds.detach().cpu().numpy()
 
@@ -65,14 +66,13 @@ for test_video_path,test_label_path in zip(test_video_paths,test_laebl_paths):
 			pred_min=pred.min()
 			pred=(pred-pred_min)/(pred_max-pred_min)
 			pred=pred>0.5
-			pred=np.array(pred,dtype=np.uint8)
+
+			pred=np.array(pred,dtype=np.uint8)	
 			pred_mask=np.zeros(shape=(pred.shape[0],pred.shape[1],3))
 			pred_mask[:,:,0]=pred
-			# img_label=get_mask_on_image(img,label)
-			# img_pred=get_mask_on_image(img,pred)
+
 			img_pred=cv2.addWeighted(img,0.5,pred_mask,0.5,0)
 			cv2.imwrite(os.path.join(img_output_dir,str(batch_split)+".png"),np.uint8(img_pred*255))
-			# show_img_label_pred(img,img_label,img_pred)
 			video_writer.write(np.uint8(img_pred*255))
 	video_writer.release()
 	print("Video {} segmentation completed!".format(video_name))

@@ -8,7 +8,9 @@ from skimage import io
 from matplotlib import pyplot as plt
 import numpy as np
 from skimage.transform import resize
-
+def mkdirs(path):
+	if not os.path.exists(path):
+		os.makedirs(path)
 def get_mask_on_image(image,label):
 	mask=label!=0
 	masked_img=image.copy()
