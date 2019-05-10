@@ -41,8 +41,8 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 ![unet2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_unet2d.png)
 ![scnn2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_scnn.png)
 
-![unet2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_unet.png)
-![scnn2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_scnn.png)
+![unet2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_UNET.png)
+![scnn2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_SCNN.png)
 
 ### 4.2 Detection
 ## 5. To do list
