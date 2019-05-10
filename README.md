@@ -37,9 +37,13 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 | Unet-2D | 0.0620 | \ | \ |
 | VPGNet | \ | \ | \ |
 | S-CNN | 0.0371 | \ | \ |
+### 4.2 Result display
+![unet2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_unet2d.png)
+![scnn2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_scnn.png)
 
-![unet2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_unet2d.jpeg)
 ![unet2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_unet2d.png)
+![scnn2d-loss](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/loss_scnn2d.png)
+
 ### 4.2 Detection
 ## 5. To do list
 - [ ] Segmentation: FCN series
