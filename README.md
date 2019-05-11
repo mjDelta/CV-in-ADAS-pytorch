@@ -46,15 +46,22 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 
 ### 4.2 Detection
 ## 5. To do list
-- [ ] Segmentation: FCN series
+- [ ] Segmentation
+  - [x] Traditional segmentation method
   - [x] 2D U-Net Seg
   - [ ] VPGNet
   - [x] S-CNN
-- [ ] Detection: YOLO series
+- [ ] Detection
+  - [ ] YOLO
+  - [ ] Faster-RCNN
+  - [ ] Stereo-RCNN
 - [ ] Combining the above
 ## 6. Reference paper
 ### 6.1 Segmentation part
 1. [Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedical image segmentation[C]//International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015: 234-241.](https://arxiv.org/abs/1505.04597)
 2. [Pan X, Shi J, Luo P, et al. Spatial as deep: Spatial cnn for traffic scene understanding[C]//Thirty-Second AAAI Conference on Artificial Intelligence. 2018.](https://arxiv.org/abs/1712.06080)
 3. [Lee S, Kim J, Shin Yoon J, et al. Vpgnet: Vanishing point guided network for lane and road marking detection and recognition[C]//Proceedings of the IEEE International Conference on Computer Vision. 2017: 1947-1955.](https://arxiv.org/abs/1710.06288)
-### 6.2 Detection
+### 6.2 Detection part
+1. [Ren S, He K, Girshick R, et al. Faster r-cnn: Towards real-time object detection with region proposal networks[C]//Advances in neural information processing systems. 2015: 91-99.](https://arxiv.org/pdf/1506.01497.pdf)
+2. [Li P, Chen X, Shen S. Stereo R-CNN based 3D Object Detection for Autonomous Driving[J]. arXiv preprint arXiv:1902.09738, 2019.](https://arxiv.org/pdf/1902.09738.pdf)
+3. [Redmon J, Farhadi A. Yolov3: An incremental improvement[J]. arXiv preprint arXiv:1804.02767, 2018.](https://pjreddie.com/media/files/papers/YOLOv3.pdf)
