@@ -32,11 +32,12 @@ package list:
 Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 ## 4. Performance
 ### 4.1 Semantic segmentation
-| Model | BCE Loss | IOU | ACC |
-| :--: | :--: | :--: | :--: |
-| Unet-2D | 0.0620 | \ | \ |
-| VPGNet | \ | \ | \ |
-| S-CNN | 0.0371 | \ | \ |
+| Model | BCE Loss | IOU | ACC | FPS|
+| :--: | :--: | :--: | :--: | :--: |
+| Unet-2D | 0.0620 | \ | \ | \ |
+| VPGNet | \ | \ | \ | \ |
+| S-CNN | 0.0371 | \ | \ | \ |
+| Least Square Fitting | \ | \ | \ | \ |
 ### 4.2 Result display
 ![unet2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_unet2d.png)
 ![scnn2d-seg](https://github.com/mjDelta/CV-in-ADAS/blob/master/img/seg_scnn.png)
@@ -51,6 +52,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
   - [x] 2D U-Net Seg
   - [ ] VPGNet
   - [x] S-CNN
+  - [x] Least Square Fitting
 - [ ] Detection
   - [ ] YOLO
   - [ ] Faster-RCNN
@@ -61,6 +63,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
 1. [Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedical image segmentation[C]//International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015: 234-241.](https://arxiv.org/abs/1505.04597)
 2. [Pan X, Shi J, Luo P, et al. Spatial as deep: Spatial cnn for traffic scene understanding[C]//Thirty-Second AAAI Conference on Artificial Intelligence. 2018.](https://arxiv.org/abs/1712.06080)
 3. [Lee S, Kim J, Shin Yoon J, et al. Vpgnet: Vanishing point guided network for lane and road marking detection and recognition[C]//Proceedings of the IEEE International Conference on Computer Vision. 2017: 1947-1955.](https://arxiv.org/abs/1710.06288)
+4. [De Brabandere B , Van Gansbeke W , Neven D , et al. End-to-end Lane Detection through Differentiable Least-Squares Fitting[J]. 2019.](https://arxiv.org/abs/1902.00293v1)
 ### 6.2 Detection part
 1. [Ren S, He K, Girshick R, et al. Faster r-cnn: Towards real-time object detection with region proposal networks[C]//Advances in neural information processing systems. 2015: 91-99.](https://arxiv.org/pdf/1506.01497.pdf)
 2. [Li P, Chen X, Shen S. Stereo R-CNN based 3D Object Detection for Autonomous Driving[J]. arXiv preprint arXiv:1902.09738, 2019.](https://arxiv.org/pdf/1902.09738.pdf)
