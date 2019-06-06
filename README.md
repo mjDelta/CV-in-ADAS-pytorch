@@ -1,9 +1,9 @@
 # CV-in-ADAS
+ADAS is short for Advanced Driver Assistance System. And it has the following features *night vision assistance, anti-collision alert, collision resolution, lane departure warning, lane keeping, lane change assist*, corner obstacle detection, driver status monitoring, driver reminder, parking assistance, traffic sign recognition, and high beam Auxiliary and so on.</br>
 
-ADAS system features *night vision assistance, anti-collision alert, collision resolution, lane departure warning, lane keeping, lane change assist*, corner obstacle detection, driver status monitoring, driver reminder, parking assistance, traffic sign recognition, and high beam Auxiliary and so on.</br>
 From the system function, the ADAS system has a significant number of tasks related to computer vision (CV) which are as follows:
-1. Detection part: vehicle detection, pedestrian detection, non-motor vehicle detection, traffic sign recognition;
-2. Segmentation: lane line detection, determination of the travelable area.
+1. Detection: vehicle detection, pedestrian detection, non-motor vehicle detection, traffic sign recognition;
+2. Segmentation: lane detection.
 
 In order to realize the above functions, it is necessary to separately establish a model for each function. However, parameters for these models are so many that the performance of the vehicle **real-time** system may be influenced.</br>
 ## 0. Environment
