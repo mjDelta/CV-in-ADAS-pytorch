@@ -54,7 +54,7 @@ Lane Segmentation: https://xingangpan.github.io/projects/CULane.html
   - [x] S-CNN
   - [x] Least Square Fitting
 - [ ] Detection
-  - [ ] YOLO
+  - [x] YOLO
   - [ ] Faster-RCNN
   - [ ] Stereo-RCNN
 - [ ] Combining the above
