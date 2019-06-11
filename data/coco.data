@@ -1,5 +1,0 @@
-classes=2
-train = ./data/2007_train.txt
-valid = ./data/2007_test.txt
-names=data/coco.names
-backup=backup/
