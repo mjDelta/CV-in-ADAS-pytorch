@@ -4,7 +4,7 @@
 # @Author  : Mengji Zhang (zmj_xy@sjtu.edu.cn)
 
 from models_least_square import UNet2D_4Lanes_LSF
-from models_unet import UNet2D_4Lanes
+from models_unet import UNet2D_4lanes
 import torch
 from data_utils import *
 import numpy as np
@@ -28,18 +28,30 @@ device=torch.device("cuda" if USE_CUDA else "cpu")
 
 lane_imgs_dir="E:/cv-adas/driver_161_90frame/driver_161_90frame"
 lane_labels_dir="E:/cv-adas/laneseg_label_w16/laneseg_label_w16/driver_161_90frame"
-out_dir="E:/cv-adas/out-driver_161_90frame-unet-least-sqaure-fitting/"
-
-epochs=50
-size_h=16*8
+out_dir="E:/cv-adas/out-driver_161_90frame-unet-least-sqaure-fitting-bigger/";mkdirs(out_dir)
+pretrained_path="E:/cv-adas/out-driver_161_90frame-unet2d-bigger/epoch_49.tar"
+load_pretrained=True
+epochs=10
+size_h=16*20
 size_w=size_h*3
-batch_size=20
+batch_size=3
 train_rate=0.8
 lane_nums=4
 
-vis=Visdom(env="seg-unet-least-square")
-feature_extractor=UNet2D_4Lanes()
+	
+vis=Visdom(env="seg-unet-least-square-bigger")
+feature_extractor=UNet2D_4lanes()
+if load_pretrained:
+	load_model=torch.load(pretrained_path)
+	feature_extractor_state=feature_extractor.state_dict()
+	load_dict={k_u:v_u for (k_u,v_u),(k_s,v_s) in zip(load_model["unet"].items(),feature_extractor.state_dict().items()) if k_u==k_s}
+	feature_extractor_state.update(load_dict)
+	feature_extractor.load_state_dict(feature_extractor_state)
+	for p in feature_extractor.parameters():
+		p.requires_grad=False
+
 lsf_model=UNet2D_4Lanes_LSF(feature_extractor,device)
+
 
 lsf_model=lsf_model.to(device)
 lsf_model.train(mode=True)
@@ -63,6 +75,9 @@ iter_losses=[]
 train_losses=[]
 val_losses=[]
 for epoch in range(epochs):
+	if epoch==5:
+		for p in lsf_model.parameters():
+			p.requires_grad=True	
 	rng.shuffle(train_idxs)
 	train_video_paths=video_paths[train_idxs]
 	train_label_paths=label_paths[train_idxs]

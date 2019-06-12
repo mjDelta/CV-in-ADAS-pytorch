@@ -16,22 +16,24 @@ device=torch.device("cuda" if USE_CUDA else "cpu")
 
 lane_imgs_dir="E:/cv-adas/driver_161_90frame/driver_161_90frame"
 lane_labels_dir="E:/cv-adas/laneseg_label_w16/laneseg_label_w16/driver_161_90frame"
-out_dir="E:/cv-adas/out-driver_161_90frame-scnn2d/"
-model_path=os.path.join(out_dir,"epoch_49.tar")
+out_dir="E:/cv-adas/out-driver_161_90frame-scnn2d-bigger/"
+model_path=os.path.join(out_dir,"epoch_5.tar")
 test_iou=True
 generate_video=True
 
-size_h=16*8
+# size_h=16*8
+size_h=16*20
 size_w=size_h*3
 batch_size=1
 train_rate=0.8
+sptial_step=5
 
-scnn=SCNN2D()
-scnn=scnn.to(device)
+unet=SCNN2D(sptial_step)
+unet=unet.to(device)
 
 model_sd=torch.load(model_path)
-scnn.load_state_dict(model_sd["scnn"])
-scnn.eval()
+unet.load_state_dict(model_sd["scnn"])
+unet.eval()
 
 video_paths,label_paths=get_video_label_paths(lane_imgs_dir,lane_labels_dir)
 rng=np.random.RandomState(0)
@@ -43,7 +45,8 @@ test_idxs=all_idxs[int(len(video_paths)*train_rate)+1:]
 
 test_video_paths=video_paths[test_idxs]
 test_laebl_paths=label_paths[test_idxs]
-
+# test_video_paths=video_paths[train_idxs]
+# test_laebl_paths=label_paths[train_idxs]
 if test_iou:
 	iou_list=[]
 fps_list=[]
@@ -64,7 +67,7 @@ for test_video_path,test_label_path in zip(test_video_paths,test_laebl_paths):
 		batch_imgs_tensor=torch.FloatTensor(batch_imgs).to(device)
 
 		start_time=time()
-		batch_preds=scnn(batch_imgs_tensor)
+		batch_preds=unet(batch_imgs_tensor)
 		end_time=time()
 		delta_time=end_time-start_time
 		if delta_time!=0:
@@ -79,7 +82,8 @@ for test_video_path,test_label_path in zip(test_video_paths,test_laebl_paths):
 			pred=(pred-pred_min)/(pred_max-pred_min)
 			pred=pred>0.5
 			pred=np.array(pred,dtype=np.uint8)
-			batch_preds_arr_.append(pred)			
+			batch_preds_arr_.append(pred)
+		# print(test_video_path[start].split("\\")[-1]," ",compute_iou_cpu(batch_preds_arr_,batch_labels))			
 		iou_list.append(compute_iou_cpu(batch_preds_arr_,batch_labels))
 		if generate_video:
 			for img,label,pred in zip(batch_imgs,batch_labels,batch_preds_arr_):
@@ -87,7 +91,7 @@ for test_video_path,test_label_path in zip(test_video_paths,test_laebl_paths):
 				pred_mask=np.zeros(shape=(pred.shape[0],pred.shape[1],3))
 				pred_mask[:,:,0]=pred
 				img_pred=cv2.addWeighted(img,1,pred_mask,0.5,0)
-				cv2.imwrite(os.path.join(img_output_dir,str(batch_split)+".png"),np.uint8(img_pred*255))
+				cv2.imwrite(os.path.join(img_output_dir,test_video_path[start].split("\\")[-1]),np.uint8(img_pred*255))
 				video_writer.write(np.uint8(img_pred*255))
 	if generate_video:
 		video_writer.release()

@@ -10,10 +10,15 @@ class UNet2D_4Lanes_LSF(nn.Module):
 	def __init__(self,feature_extractor,device):
 		super(UNet2D_4Lanes_LSF,self).__init__()
 		self.feature_extractor=feature_extractor
+		self.map_weights=nn.Sequential(
+			nn.Conv2d(32,4,1,padding=0),
+			nn.Sigmoid())
+
 		self.device=device
 	def forward(self,x,masks):
 		## masks: B,C,H,W
-		weights=self.feature_extractor(x)
+		features=self.feature_extractor(x)
+		weights=self.map_weights(features)
 		B,C,H,W=weights.shape
 		betas=[]
 		for b in range(B):

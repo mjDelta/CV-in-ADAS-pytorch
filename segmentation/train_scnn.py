@@ -23,16 +23,37 @@ device=torch.device("cuda" if USE_CUDA else "cpu")
 
 lane_imgs_dir="E:/cv-adas/driver_161_90frame/driver_161_90frame"
 lane_labels_dir="E:/cv-adas/laneseg_label_w16/laneseg_label_w16/driver_161_90frame"
-out_dir="E:/cv-adas/out-driver_161_90frame-scnn2d/"
+out_dir="E:/cv-adas/out-driver_161_90frame-scnn2d-bigger/"
+pretrained_path="E:/cv-adas/out-driver_161_90frame-unet2d-bigger/epoch_49.tar"
+load_pretrained=True
+
 mkdirs(out_dir)
 epochs=50
-size_h=16*8
+size_h=16*20
 size_w=size_h*3
-batch_size=10
+batch_size=2
 train_rate=0.8
+spatial_step=5
 
-vis=Visdom(env="seg-scnn")
-scnn=SCNN2D()
+vis=Visdom(env="seg-scnn-bigger")
+scnn=SCNN2D(spatial_step)
+if load_pretrained:
+	load_model=torch.load(pretrained_path)
+	scnn_state = scnn.state_dict()
+	load_dict={k_u:v_u for (k_u,v_u),(k_s,v_s) in zip(load_model["unet"].items(),scnn.state_dict().items()) if k_u==k_s}
+	scnn_state.update(load_dict)
+	scnn.load_state_dict(scnn_state)
+	for p in scnn.parameters():
+		p.requires_grad=False
+	scnn.conv_d=nn.Conv2d(32,32,(1,5),padding=(0,2),bias=False)
+	scnn.conv_u=nn.Conv2d(32,32,(1,5),padding=(0,2),bias=False)
+	scnn.conv_r=nn.Conv2d(32,32,(5,1),padding=(2,0),bias=False)
+	scnn.conv_l=nn.Conv2d(32,32,(5,1),padding=(2,0),bias=False)
+	scnn.conv=nn.Conv2d(32,1,1)
+	
+	# load_model=torch.load(pretrained_path)
+	# scnn.load_state_dict(load_model["scnn"])
+
 scnn=scnn.to(device)
 scnn.train(mode=True)
 optimizer=optim.SGD(scnn.parameters(),lr=1e-4,momentum=0.9,weight_decay=0.005)
@@ -54,6 +75,9 @@ iter_losses=[]
 train_losses=[]
 val_losses=[]
 for epoch in range(epochs):
+	if epoch==5:
+		for p in scnn.parameters():
+			p.requires_grad=True		
 	rng.shuffle(train_idxs)
 	train_video_paths=video_paths[train_idxs]
 	train_label_paths=label_paths[train_idxs]
@@ -90,6 +114,10 @@ for epoch in range(epochs):
 		
 	epoch_train_loss/=len(train_idxs)
 	torch.cuda.empty_cache()
+	torch.save({
+		"scnn":scnn.state_dict(),
+		"optimizer":optimizer.state_dict()
+		},os.path.join(out_dir,"epoch_{}.tar".format(epoch)))
 	##val
 	scnn.train(mode=False)
 	epoch_val_loss=0.
@@ -117,10 +145,7 @@ for epoch in range(epochs):
 	train_losses.append(epoch_train_loss)
 	val_losses.append(epoch_val_loss)
 	print("Epoch {}: trian loss {}\tval loss {}".format(epoch,epoch_train_loss,epoch_val_loss))	
-	torch.save({
-		"scnn":scnn.state_dict(),
-		"optimizer":optimizer.state_dict()
-		},os.path.join(out_dir,"epoch_{}.tar".format(epoch)))
+
 
 df1=pd.DataFrame()
 df1["iteration"]=np.arange(len(iter_losses))

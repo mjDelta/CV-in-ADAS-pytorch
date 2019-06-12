@@ -108,10 +108,9 @@ class UNet2D(nn.Module):
 		y=self.final_block(tmp_de1)
 		return y
 
-
-class UNet2D_4Lanes(nn.Module):
+class UNet2D_4lanes(nn.Module):
 	def __init__(self):
-		super(UNet2D_4Lanes,self).__init__()
+		super(UNet2D_4lanes,self).__init__()
 
 		self.encoder_block1=nn.Sequential(
 			nn.Conv2d(3,32,3,padding=(3-1)//2),
@@ -184,9 +183,7 @@ class UNet2D_4Lanes(nn.Module):
 			nn.LeakyReLU(),
 			nn.Conv2d(32,32,3,padding=(3-1)//2),
 			nn.BatchNorm2d(32),
-			nn.LeakyReLU(),
-			nn.Conv2d(32,4,1,padding=0),
-			nn.Sigmoid())
+			nn.LeakyReLU())
 	def forward(self,x):
 		en1=self.encoder_block1(x)
 		pool1=self.encoder_block1_pool(en1)
@@ -210,3 +207,5 @@ class UNet2D_4Lanes(nn.Module):
 		tmp_de1=torch.cat([de1,en1],dim=1)
 		y=self.final_block(tmp_de1)
 		return y
+
+
